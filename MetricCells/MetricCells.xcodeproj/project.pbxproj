@@ -1,0 +1,333 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B30014041AE4407500D9C8CE /* armrobot_planning.cpp */; };
+		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
+		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3E678831AE4379100A0D287 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B30013ED1AE43AB100D9C8CE /* geoND.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geoND.h; sourceTree = "<group>"; };
+		B30013F81AE43D7000D9C8CE /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometry.h; sourceTree = "<group>"; };
+		B30013F91AE43D7000D9C8CE /* GJK_utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJK_utility.h; sourceTree = "<group>"; };
+		B30013FA1AE43D7000D9C8CE /* polygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = polygon.h; sourceTree = "<group>"; };
+		B30013FB1AE43D7000D9C8CE /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
+		B30013FF1AE43E1200D9C8CE /* cspace_scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cspace_scanner.h; sourceTree = "<group>"; };
+		B30014001AE43E1200D9C8CE /* obstacles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = obstacles.h; sourceTree = "<group>"; };
+		B30014041AE4407500D9C8CE /* armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = armrobot_planning.cpp; sourceTree = "<group>"; };
+		B30014051AE4407500D9C8CE /* armrobot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = armrobot.cpp; sourceTree = "<group>"; };
+		B30014081AE4408E00D9C8CE /* armrobot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = armrobot.h; sourceTree = "<group>"; };
+		B30014091AE4467F00D9C8CE /* cspace_decomposer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cspace_decomposer.cpp; sourceTree = "<group>"; };
+		B300140A1AE4467F00D9C8CE /* cspace_decomposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cspace_decomposer.h; sourceTree = "<group>"; };
+		B300140B1AE4467F00D9C8CE /* file_reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_reader.h; sourceTree = "<group>"; };
+		B30014131AE449BE00D9C8CE /* robot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robot.h; sourceTree = "<group>"; };
+		B30014141AE44EE100D9C8CE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		B30014161AE44EE500D9C8CE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3E678821AE4379100A0D287 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */,
+				B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B30013E81AE43A9C00D9C8CE /* scenarios */ = {
+			isa = PBXGroup;
+			children = (
+				B30014081AE4408E00D9C8CE /* armrobot.h */,
+				B30014051AE4407500D9C8CE /* armrobot.cpp */,
+				B30014041AE4407500D9C8CE /* armrobot_planning.cpp */,
+			);
+			path = scenarios;
+			sourceTree = SOURCE_ROOT;
+		};
+		B30013E91AE43AB100D9C8CE /* basics */ = {
+			isa = PBXGroup;
+			children = (
+				B30013EA1AE43AB100D9C8CE /* algorithms */,
+				B30013EB1AE43AB100D9C8CE /* data_structures */,
+				B30013EC1AE43AB100D9C8CE /* math */,
+				B30013F41AE43AB100D9C8CE /* robotics */,
+			);
+			path = basics;
+			sourceTree = SOURCE_ROOT;
+		};
+		B30013EA1AE43AB100D9C8CE /* algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				B30014091AE4467F00D9C8CE /* cspace_decomposer.cpp */,
+				B300140A1AE4467F00D9C8CE /* cspace_decomposer.h */,
+				B300140B1AE4467F00D9C8CE /* file_reader.h */,
+			);
+			path = algorithms;
+			sourceTree = "<group>";
+		};
+		B30013EB1AE43AB100D9C8CE /* data_structures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = data_structures;
+			sourceTree = "<group>";
+		};
+		B30013EC1AE43AB100D9C8CE /* math */ = {
+			isa = PBXGroup;
+			children = (
+				B30013F71AE43D7000D9C8CE /* Naive2D */,
+				B30013ED1AE43AB100D9C8CE /* geoND.h */,
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
+		B30013F41AE43AB100D9C8CE /* robotics */ = {
+			isa = PBXGroup;
+			children = (
+				B30013FF1AE43E1200D9C8CE /* cspace_scanner.h */,
+				B30014001AE43E1200D9C8CE /* obstacles.h */,
+				B30014131AE449BE00D9C8CE /* robot.h */,
+			);
+			path = robotics;
+			sourceTree = "<group>";
+		};
+		B30013F71AE43D7000D9C8CE /* Naive2D */ = {
+			isa = PBXGroup;
+			children = (
+				B30013F81AE43D7000D9C8CE /* geometry.h */,
+				B30013F91AE43D7000D9C8CE /* GJK_utility.h */,
+				B30013FA1AE43D7000D9C8CE /* polygon.h */,
+				B30013FB1AE43D7000D9C8CE /* render.h */,
+			);
+			path = Naive2D;
+			sourceTree = "<group>";
+		};
+		B3E6787C1AE4379100A0D287 = {
+			isa = PBXGroup;
+			children = (
+				B30014161AE44EE500D9C8CE /* GLUT.framework */,
+				B30014141AE44EE100D9C8CE /* OpenGL.framework */,
+				B3E678871AE4379100A0D287 /* MetricCells */,
+				B3E678861AE4379100A0D287 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B3E678861AE4379100A0D287 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3E678851AE4379100A0D287 /* MetricCells */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B3E678871AE4379100A0D287 /* MetricCells */ = {
+			isa = PBXGroup;
+			children = (
+				B30013E81AE43A9C00D9C8CE /* scenarios */,
+				B30013E91AE43AB100D9C8CE /* basics */,
+			);
+			path = MetricCells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B3E678841AE4379100A0D287 /* MetricCells */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3E6788C1AE4379100A0D287 /* Build configuration list for PBXNativeTarget "MetricCells" */;
+			buildPhases = (
+				B3E678811AE4379100A0D287 /* Sources */,
+				B3E678821AE4379100A0D287 /* Frameworks */,
+				B3E678831AE4379100A0D287 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MetricCells;
+			productName = MetricCells;
+			productReference = B3E678851AE4379100A0D287 /* MetricCells */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3E6787D1AE4379100A0D287 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Yinan Zhang";
+				TargetAttributes = {
+					B3E678841AE4379100A0D287 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = B3E678801AE4379100A0D287 /* Build configuration list for PBXProject "MetricCells" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B3E6787C1AE4379100A0D287;
+			productRefGroup = B3E678861AE4379100A0D287 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3E678841AE4379100A0D287 /* MetricCells */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3E678811AE4379100A0D287 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B3E6788A1AE4379100A0D287 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B3E6788B1AE4379100A0D287 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B3E6788D1AE4379100A0D287 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B3E6788E1AE4379100A0D287 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3E678801AE4379100A0D287 /* Build configuration list for PBXProject "MetricCells" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3E6788A1AE4379100A0D287 /* Debug */,
+				B3E6788B1AE4379100A0D287 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3E6788C1AE4379100A0D287 /* Build configuration list for PBXNativeTarget "MetricCells" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3E6788D1AE4379100A0D287 /* Debug */,
+				B3E6788E1AE4379100A0D287 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3E6787D1AE4379100A0D287 /* Project object */;
+}
