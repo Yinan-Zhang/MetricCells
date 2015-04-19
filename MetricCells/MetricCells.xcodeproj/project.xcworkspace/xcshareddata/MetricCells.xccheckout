@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>15738D6E-8938-4D17-9E4B-DE2DB9F64097</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MetricCells</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>67210C9433D1C7B2B5BDCC3905AB6C5F45B80600</key>
+		<string>https://github.com/Yinan-Zhang/MetricCells.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MetricCells/MetricCells.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>67210C9433D1C7B2B5BDCC3905AB6C5F45B80600</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Yinan-Zhang/MetricCells.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>67210C9433D1C7B2B5BDCC3905AB6C5F45B80600</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>67210C9433D1C7B2B5BDCC3905AB6C5F45B80600</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MetricCells</string>
+		</dict>
+	</array>
+</dict>
+</plist>
