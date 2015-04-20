@@ -319,8 +319,8 @@ namespace algorithms {
         
         //int InCell(const CONFIG& cfg);
         
-        double CalcFreeCellRadius() const {
-            double min_dist = obstacle_manager_.dist_to_obsts(robot_);
+        double CalcFreeCellRadius(double min_dist) const {
+            //double min_dist = obstacle_manager_.dist_to_obsts(robot_);
             double min_time_to_collision = min_dist / robot_.get_max_speed();
             return min_time_to_collision * min_param_speed_;
         }
