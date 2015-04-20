@@ -18,6 +18,7 @@ namespace algorithms {
         static constexpr int DIM = IROBOT::DIM;
         using CONFIG = typename IROBOT::CONFIG;
         
+        // @param u, v: indices of two cells
         Boundary(int u, int v) : side1(u), side2(v) {}
         
         int otherside(int side) const {
@@ -173,6 +174,7 @@ namespace algorithms {
     public:
         static constexpr int NUM_SPLITS = 1 << DIM;
         static constexpr int FREE_MASK = 1;
+        static constexpr int MIX_MASK = 4;
         static constexpr int COVERED_MASK = 2;
         TreeNode(const ND::vec<DIM>& c, int arg_depth) : center_{c}, children{NOT_FOUND}, depth_(arg_depth) {}
         const ND::vec<DIM>& center() const { return center_; }
@@ -183,6 +185,7 @@ namespace algorithms {
         void set_cell(int cell_number) { cell = cell_number; }
         bool is_free() const { return info & FREE_MASK; }
         void set_free() { info |= FREE_MASK; }
+        void set_mix() { info |= MIX_MASK; }
         bool is_covered() const { return info & COVERED_MASK; }
         void set_covered() { info |= COVERED_MASK; }
     private:
@@ -222,15 +225,16 @@ namespace algorithms {
                      double epsilon);
         
         // @return a vector of indices of boundary cells. ( cells that partially contain obstacles )
-        std::vector<int>  ShallowDecompose(double min_radius);
+        void ShallowDecompose(double min_radius);
         
         // Decompose the subspace.
-        void  DecomposeSubspace(int subspace_index);
+        void DecomposeSubspace(int subspace_index);
         
         void DecomposeSpace();
         //void ScanCollisionSpace();
         std::vector<Cell<IROBOT>>&& move_free_cells() { return std::move(cells); }
         std::vector<Boundary<IROBOT>>&& move_boundaries() { return std::move(all_boundaries); }
+        std::vector<Boundary<IROBOT>>& get_boundaries(){return this->all_boundaries; }
         const std::vector<Cell<IROBOT>>& get_free_cells() const { return cells; }
 
     private:

@@ -41,6 +41,8 @@
 		B30014131AE449BE00D9C8CE /* robot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = robot.h; sourceTree = "<group>"; };
 		B30014141AE44EE100D9C8CE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B30014161AE44EE500D9C8CE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		B30014181AE5928700D9C8CE /* cell_analysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cell_analysis.h; sourceTree = "<group>"; };
+		B30014191AE599E900D9C8CE /* priority_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = priority_queue.h; sourceTree = "<group>"; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,8 @@
 				B30014091AE4467F00D9C8CE /* cspace_decomposer.cpp */,
 				B300140A1AE4467F00D9C8CE /* cspace_decomposer.h */,
 				B300140B1AE4467F00D9C8CE /* file_reader.h */,
+				B30014181AE5928700D9C8CE /* cell_analysis.h */,
+				B30014191AE599E900D9C8CE /* priority_queue.h */,
 			);
 			path = algorithms;
 			sourceTree = "<group>";

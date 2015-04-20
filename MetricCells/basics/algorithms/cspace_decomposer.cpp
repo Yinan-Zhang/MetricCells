@@ -28,10 +28,8 @@ algorithms::KDDecomposer<IROBOT>::KDDecomposer(IROBOT& robot,
  * Decompose the space
  */
 template <typename IROBOT>
-std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
+void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
 {
-    std::vector<int> mix_cells;
-    
     std::clock_t    t0 = std::clock();
     const std::array<robotics::Range, DIM>& ranges = robot_.get_config_ranges();
     ND::vec<DIM> center;
@@ -52,10 +50,7 @@ std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_
         int node_index = stack.top();
         stack.pop();
         
-        double cell_radius = radius_array[get_node(node_index)];
-        
-        if( cell_radius <= min_radius )
-            mix_cells.push_back(node_index);
+        double cell_radius = radius_array[get_node(node_index).depth()];
         
         robot_.set_config(get_node(node_index).center());
         double dist_to_obsts = obstacle_manager_.dist_to_obsts(robot_);
@@ -71,11 +66,16 @@ std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_
                 if (!MERGE_CELLS)
                     get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), cell_radius));
             }
-            else if ( dist_to_obsts >= epsilon_ * 0.5 && cell_radius > min_radius )
+            else if ( cell_radius > min_radius )
             {
                 SplitCell(node_index);
                 for (int i = 0; i < NUM_SPLITS; ++i)
                     stack.emplace(get_node(node_index).get_children() + i);
+            }
+            else
+            {
+                get_node(node_index).set_covered();
+                get_node(node_index).set_free();
             }
         }
         else if (obstacle_manager_.penetration(robot_) / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * cell_radius )
@@ -88,6 +88,11 @@ std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_
             for (int i = 0; i < NUM_SPLITS; ++i)
                 stack.emplace(get_node(node_index).get_children() + i);
         }
+        else if (cell_radius <= min_radius )
+        {
+            //get_node(node_index).set_covered();
+            //get_node(node_index).set_free();
+        }
     }
     
     nodes.shrink_to_fit();
@@ -96,7 +101,6 @@ std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_
     std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
     clean_tree();
     build_edges();
-    return mix_cells;
 }
 
 void  DecomposeSubspace(int subspace_index)
