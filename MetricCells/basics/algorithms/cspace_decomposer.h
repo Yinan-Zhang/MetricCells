@@ -193,6 +193,22 @@ namespace algorithms {
         unsigned char info = 0;
     };
     
+    
+    
+    template<size_t DIM>
+    struct Subspace
+    {
+        Subspace( std::array<robotics::Range, DIM>& cfg_ranges )
+        {
+            this->ranges = cfg_ranges;
+        }
+        
+        std::array<robotics::Range, DIM> ranges;
+    };
+    
+    
+    
+    
     template<typename IROBOT>
     class KDDecomposer final {
     public:
@@ -204,7 +220,14 @@ namespace algorithms {
         KDDecomposer(IROBOT& robot,
                      robotics::ObstManager& obstacle_manager,
                      double epsilon);
-                void DecomposeSpace();
+        
+        // @return a vector of indices of boundary cells. ( cells that partially contain obstacles )
+        std::vector<int>  ShallowDecompose(double min_radius);
+        
+        // Decompose the subspace.
+        void  DecomposeSubspace(int subspace_index);
+        
+        void DecomposeSpace();
         //void ScanCollisionSpace();
         std::vector<Cell<IROBOT>>&& move_free_cells() { return std::move(cells); }
         std::vector<Boundary<IROBOT>>&& move_boundaries() { return std::move(all_boundaries); }

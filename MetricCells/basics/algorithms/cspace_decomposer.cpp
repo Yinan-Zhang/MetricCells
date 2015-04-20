@@ -23,6 +23,79 @@ algorithms::KDDecomposer<IROBOT>::KDDecomposer(IROBOT& robot,
             min_param_speed_ = param_speeds[i];
 }
 
+
+/**
+ * Decompose the space
+ */
+template <typename IROBOT>
+std::vector<int> algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
+{
+    std::clock_t    t0 = std::clock();
+    const std::array<robotics::Range, DIM>& ranges = robot_.get_config_ranges();
+    ND::vec<DIM> center;
+    for (int i = 0; i < DIM; i++) {
+        center[i] = (std::get<0>(ranges[i]) + std::get<1>(ranges[i])) * 0.5;
+    }
+    radius_array[0] = (std::get<1>(ranges[0]) - std::get<0>(ranges[0])) * 0.5;
+    for (int i = 1; i < sizeof(radius_array) / sizeof(radius_array[0]); ++i)
+        radius_array[i] = radius_array[i-1] * 0.5;
+    // NOTE: Assumes hypercube config space!! (Commented code more general)
+    nodes.reserve(360000000);
+    cells.reserve(3000000);
+    root_index = get_new_node(center, 0);
+    std::stack<int> stack;
+    stack.emplace(root_index);
+    while (!stack.empty())
+    {
+        int node_index = stack.top();
+        stack.pop();
+        
+        robot_.set_config(get_node(node_index).center());
+        double dist_to_obsts = obstacle_manager_.dist_to_obsts(robot_);
+        if (dist_to_obsts > 0)
+        {
+            // Create free space ball
+            double initial_guess = CalcFreeCellRadius();
+            double radius = robot_.free_space_oracle(obstacle_manager_, initial_guess /* lower bound */, 2 * initial_guess /* upper bound */);
+            if (robot_.subconvex_radius(obstacle_manager_, radius, radius_array[get_node(node_index).depth()]) )
+            {
+                get_node(node_index).set_covered();
+                get_node(node_index).set_free();
+                if (!MERGE_CELLS)
+                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), radius_array[get_node(node_index).depth()]));
+            }
+            else if (dist_to_obsts >= epsilon_ * 0.5 || radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5) )
+            {
+                SplitCell(node_index);
+                for (int i = 0; i < NUM_SPLITS; ++i)
+                    stack.emplace(get_node(node_index).get_children() + i);
+            }
+        }
+        else if (obstacle_manager_.penetration(robot_) / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * radius_array[get_node(node_index).depth()] )
+        {
+            continue;
+        }
+        else if (radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5))
+        {
+            SplitCell(node_index);
+            for (int i = 0; i < NUM_SPLITS; ++i)
+                stack.emplace(get_node(node_index).get_children() + i);
+        }
+    }
+    
+    nodes.shrink_to_fit();
+    cells.shrink_to_fit();
+    std::clock_t    t1 = std::clock();
+    std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
+    clean_tree();
+    build_edges();
+}
+
+void  DecomposeSubspace(int subspace_index)
+{
+    
+}
+
 /**
  * Decompose the space
  */
@@ -43,35 +116,44 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSpace() {
     root_index = get_new_node(center, 0);
     std::stack<int> stack;
     stack.emplace(root_index);
-    while (!stack.empty()) {
+    while (!stack.empty())
+    {
         int node_index = stack.top();
         stack.pop();
 
         robot_.set_config(get_node(node_index).center());
         double dist_to_obsts = obstacle_manager_.dist_to_obsts(robot_);
-        if (dist_to_obsts > 0) {
+        if (dist_to_obsts > 0)
+        {
             // Create free space ball
             double initial_guess = CalcFreeCellRadius();
             double radius = robot_.free_space_oracle(obstacle_manager_, initial_guess /* lower bound */, 2 * initial_guess /* upper bound */);
-            if (robot_.subconvex_radius(obstacle_manager_, radius, radius_array[get_node(node_index).depth()]) ){
+            if (robot_.subconvex_radius(obstacle_manager_, radius, radius_array[get_node(node_index).depth()]) )
+            {
                 get_node(node_index).set_covered();
                 get_node(node_index).set_free();
                 if (!MERGE_CELLS)
                     get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), radius_array[get_node(node_index).depth()]));
             }
-            else if (dist_to_obsts >= epsilon_ * 0.5 || radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5) ) {
+            else if (dist_to_obsts >= epsilon_ * 0.5 || radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5) )
+            {
                 SplitCell(node_index);
                 for (int i = 0; i < NUM_SPLITS; ++i)
                     stack.emplace(get_node(node_index).get_children() + i);
             }
-        } else if (obstacle_manager_.penetration(robot_) / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * radius_array[get_node(node_index).depth()] ) {
+        }
+        else if (obstacle_manager_.penetration(robot_) / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * radius_array[get_node(node_index).depth()] )
+        {
             continue;
-        } else if (radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5)) {
+        }
+        else if (radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5))
+        {
             SplitCell(node_index);
             for (int i = 0; i < NUM_SPLITS; ++i)
                 stack.emplace(get_node(node_index).get_children() + i);
         }
     }
+    
     nodes.shrink_to_fit();
     cells.shrink_to_fit();
     std::clock_t    t1 = std::clock();
