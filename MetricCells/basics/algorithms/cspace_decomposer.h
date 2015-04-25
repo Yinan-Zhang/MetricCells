@@ -173,9 +173,9 @@ namespace algorithms {
     class TreeNode {
     public:
         static constexpr int NUM_SPLITS = 1 << DIM;
-        static constexpr int FREE_MASK = 1;
-        static constexpr int MIX_MASK = 4;
-        static constexpr int COVERED_MASK = 2;
+        static constexpr char FREE_MASK = 0x0001;
+        static constexpr char MIX_MASK = 0x0010;
+        static constexpr char COVERED_MASK = 0x0100;
         TreeNode(const ND::vec<DIM>& c, int arg_depth) : center_{c}, children{NOT_FOUND}, depth_(arg_depth) {}
         const ND::vec<DIM>& center() const { return center_; }
         int depth() const { return depth_; }

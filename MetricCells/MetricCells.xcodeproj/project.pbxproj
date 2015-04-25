@@ -44,6 +44,7 @@
 		B30014181AE5928700D9C8CE /* cell_analysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cell_analysis.h; sourceTree = "<group>"; };
 		B30014191AE599E900D9C8CE /* priority_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = priority_queue.h; sourceTree = "<group>"; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD841DC01AE5E33D0027DE00 /* PRM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRM.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +89,7 @@
 				B300140B1AE4467F00D9C8CE /* file_reader.h */,
 				B30014181AE5928700D9C8CE /* cell_analysis.h */,
 				B30014191AE599E900D9C8CE /* priority_queue.h */,
+				FD841DC01AE5E33D0027DE00 /* PRM.h */,
 			);
 			path = algorithms;
 			sourceTree = "<group>";

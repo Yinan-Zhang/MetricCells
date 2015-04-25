@@ -75,10 +75,11 @@ void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
             else
             {
                 get_node(node_index).set_covered();
+                //get_node(node_index).set_mix();
                 get_node(node_index).set_free();
             }
         }
-        else if (obstacle_manager_.penetration(robot_) / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * cell_radius )
+        else if (obstacle_manager_.penetration(robot_)  >= cell_radius  )
         {
             continue;
         }
@@ -91,7 +92,7 @@ void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
         else if (cell_radius <= min_radius )
         {
             //get_node(node_index).set_covered();
-            //get_node(node_index).set_free();
+            //get_node(node_index).set_mix();
         }
     }
     
@@ -205,7 +206,7 @@ bool algorithms::KDDecomposer<IROBOT>::delete_unsafe_cells(int node)
 
 template<typename IROBOT>
 bool algorithms::KDDecomposer<IROBOT>::merge_free_cells(int node)
-{
+{ 
     if (get_node(node).is_free())
         return true;
     if (get_node(node).get_children() == NOT_FOUND)

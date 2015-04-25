@@ -17,6 +17,7 @@
 #include "../basics/robotics/cspace_scanner.h"
 #include "../basics/algorithms/cspace_decomposer.h"
 #include "../basics/algorithms/cell_analysis.h"
+#include "../basics/algorithms/PRM.h"
 
 // Basic configuration set up
 int     num_samples     = 1000;
@@ -28,7 +29,7 @@ int     num_joints      = 2;
 bool    calc_collision_cells = false;
 bool    render_cells    = true;
 bool    scan_space      = false;
-bool    render_workspace= true;
+bool    render_workspace= false;
 bool    search_path     = true;
 
 // Set up the robot
@@ -77,8 +78,8 @@ void display()
     
     
     // Set up the world
-    //std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", geometry::v2(M_PI, M_PI));
-    std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    //std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
     //std::vector<N2D::Polygon> polies = parse_file("/Users/yuhanlyu/Documents/RSS2015/C++/RSS2015/ji.txt", geometry::v2(M_PI, M_PI));
     std::vector<robotics::Obstacle> obsts;
     for (N2D::Polygon poly : polies) {
@@ -136,7 +137,7 @@ void display()
                 if( temp2d_sphere.radius() <= M_PI/64)
                 {
                     double weight = importance[i];
-                    N2D::render::sphere(temp2d_sphere, N2D::render::Color( 20*weight,0,0, 40 ), true);
+                    N2D::render::sphere(temp2d_sphere, N2D::render::Color( 100*weight,0,0, 40 ), true);
                 }
             }
         }
