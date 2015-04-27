@@ -70,7 +70,7 @@ namespace algorithms
                 }
             }
             
-            bool connects( PRM<IROBOT> other_prm )
+            bool connects( PRM<IROBOT> other_prm, std::pair<int, int>& bridge )
             {
                 int other_size = other_prm.get_nodes().size();
                 for( int i=0; i < nodes.size(); i++ )
@@ -78,7 +78,11 @@ namespace algorithms
                     for( int j = 0; j < other_size; j++ )
                     {
                         if( local_planner(get_node(i), other_prm.get_node(j)) )
+                        {
+                            bridge.first = i;
+                            bridge.second = j;
                             return true;
+                        }
                     }
                 }
                 return false;

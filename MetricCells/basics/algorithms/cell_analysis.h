@@ -41,19 +41,53 @@ namespace algorithms {
             vector<int> row( cells.size(), INFTY );
             vector<vector<int>> origin_matrix( cells.size(), row );
             vector<vector<int>> matrix( cells.size(), row );
-            build_simple_dist_matrix( large_size_threshold, origin_matrix );
+            vector<int> prev( cells.size(), -1 );
+            build_simple_dist_matrix( large_size_threshold, origin_matrix, prev );
             
             for( int i = 0; i < cells.size(); i++ )
             {
                 if(get_cell(i).radius() > bnd_size_threshold) continue;
                 
-                build_simple_dist_matrix( large_size_threshold, matrix, i );
+                build_simple_dist_matrix( large_size_threshold, matrix, prev, i );
                 importance[i] = matrix_diff_sum( origin_matrix, matrix, i );
             }
             
             return importance;
         }
         
+        
+        std::vector<double> build_path_importance_matrix( double large_size_threshold, double bnd_size_threshold )
+        {
+            std::clock_t    t0 = std::clock();
+            vector<double> importance = vector<double>( cells.size(), 0 );
+            vector<int> row( cells.size(), INFTY );
+            vector<int> prev( cells.size(), -1 );
+            vector<vector<int>> origin_matrix( cells.size(), row );
+            vector<vector<int>> matrix( cells.size(), row );
+            
+            for( int i= 0; i < cells.size(); i++ )
+            {
+                if(get_cell(i).radius() >= large_size_threshold)
+                {
+                    Dijkstra( i, matrix[i], prev, -1 );
+                    
+                    unordered_set<int> visited;
+                    for (int j = 0; j < cells.size(); j++) {
+                        double impt = matrix[i][j] * std::pow( (double)(get_cell(i).radius() * get_cell(j).radius()), 2);
+                        int curr = prev[j];
+                        while( prev[curr] != -1 )
+                        {
+                            importance[ curr ] += impt;// std::pow( (double)(get_cell(curr).radius()), 2);
+                            curr = prev[curr];
+                        }
+                    }
+                }
+            }
+            std::clock_t    t1 = std::clock();
+            
+            std::cout << "Time cost for analyzing cell importance:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
+            return importance;
+        }
 
     private:
         std::vector<Cell<IROBOT>> cells;
@@ -77,7 +111,7 @@ namespace algorithms {
         }
         
         
-        void build_simple_dist_matrix( double cell_size_threshold, vector<vector<int>>& matrix, int exception = -1 )
+        void build_simple_dist_matrix( double cell_size_threshold, vector<vector<int>>& matrix, std::vector<int>& prev, int exception = -1 )
         {
             for( int i = 0; i < matrix.size(); i++ )
             {
@@ -93,16 +127,17 @@ namespace algorithms {
             {
                 if(get_cell(i).radius() >= cell_size_threshold)
                 {
-                    Dijkstra( i, matrix[i], exception );
+                    Dijkstra( i, matrix[i], prev, exception );
                 }
             }
         }
         
         
-        void Dijkstra( int source_idx, std::vector<int>& dists, int exception )
+        void Dijkstra( int source_idx, std::vector<int>& dists, std::vector<int>& prev, int exception )
         {
             for (int i=0; i<dists.size(); i++) {
                 dists[i] = INFTY;
+                prev[i]  = -1;
             }
             dists[source_idx] = 0;
             
@@ -126,6 +161,7 @@ namespace algorithms {
                     if( alt < dists[neighbor] )
                     {
                         dists[neighbor] = alt;
+                        prev[neighbor]  = current;
                         Q.push( neighbor, alt );
                     }
                 }

@@ -112,7 +112,8 @@ void display()
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());
         
         algorithms::Analyzer<ArmRobot<2>> analyzer( sampler );
-        importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
+        //importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
+        importance = analyzer.build_path_importance_matrix(M_PI/8, M_PI/64);
         printf("Finished building importance matrix!\n");
         
         planning_cells = sampler.get_free_cells();
@@ -121,6 +122,9 @@ void display()
     // Render Cells
     if( render_cells && !render_workspace )
     {
+        const double max_weight = *std::max_element(std::begin(importance), std::end(importance));
+        const double min_weight = *std::min_element(std::begin(importance), std::end(importance));
+        
         for (int i = 0; i < planning_cells.size(); i++)
         {
             ND::sphere<2> temp_sphere = planning_cells[i].sphere();
@@ -136,8 +140,8 @@ void display()
                 N2D::render::sphere(temp2d_sphere, N2D::render::Color( 50,50,50, 40 ), false);
                 if( temp2d_sphere.radius() <= M_PI/64)
                 {
-                    double weight = importance[i];
-                    N2D::render::sphere(temp2d_sphere, N2D::render::Color( 100*weight,0,0, 40 ), true);
+                    double weight = importance[i] / ( max_weight/8.0 - min_weight );
+                    N2D::render::sphere(temp2d_sphere, N2D::render::Color( 255*weight,0,0, 40 ), true);
                 }
             }
         }
