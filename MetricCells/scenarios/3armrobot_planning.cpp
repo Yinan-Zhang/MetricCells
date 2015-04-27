@@ -14,7 +14,7 @@
 #include "../basics/math/Naive2D/geometry.h"
 #include "../basics/math/Naive2D/render.h"
 #include "../basics/algorithms/file_reader.h"
-#include "../basics/robotics/cspace_scanner.h"
+//#include "../basics/robotics/cspace_scanner.h"
 #include "../basics/algorithms/cspace_decomposer.h"
 #include "../basics/algorithms/cell_analysis.h"
 #include "../basics/algorithms/PRM.h"
@@ -31,14 +31,15 @@ bool    render_cells    = true;
 bool    scan_space      = false;
 bool    render_workspace= false;
 bool    search_path     = true;
+#define DIM 3
 
 // Set up the robot
-std::array<double, 2> arm_lengths{1.0, 1.0};
-std::array<double, 2> max_angular_speeds{1.0, 1.0};
-ArmRobot<2> robot ( 0.1, M_PI/2, arm_lengths, max_angular_speeds);
-std::vector<ArmRobot<2>::CONFIG> path;
+std::array<double, DIM> arm_lengths{0.7, 0.7, 0.7};
+std::array<double, DIM> max_angular_speeds{1.0, 1.0, 1.0};
+ArmRobot<DIM> robot ( 0.1, M_PI/2, arm_lengths, max_angular_speeds);
+std::vector<ArmRobot<DIM>::CONFIG> path;
 std::vector<N2D::sphere> obst_cfgs;
-std::vector<algorithms::Cell<ArmRobot<2>>> planning_cells;
+std::vector<algorithms::Cell<ArmRobot<DIM>>> planning_cells;
 std::vector<double> importance;
 
 
@@ -73,8 +74,8 @@ void display()
     //ArmRobot<2>::CONFIG start( {0.05, 0.05} );
     //ArmRobot<2>::CONFIG goal( {M_PI/2 + .25, 0.11} );
     
-    ArmRobot<2>::CONFIG start( {1.1, 0.4} );
-    ArmRobot<2>::CONFIG goal( {M_PI/2 + .2, 0.1} );
+    ArmRobot<DIM>::CONFIG start( {1.1, 0.4, 0} );
+    ArmRobot<DIM>::CONFIG goal( {M_PI/2 + .2, 0.1, 0} );
     
     
     // Set up the world
@@ -89,8 +90,9 @@ void display()
     robotics::ObstManager obstacle_manager(obsts);
     
     // CSpace Scanner
-    CSpaceScanner<ArmRobot<2>> scanner( robot, obstacle_manager );
+    //CSpaceScanner<ArmRobot<DIM>> scanner( robot, obstacle_manager );
     
+    /*
     if(scan_space)
     {
         if(obst_cfgs.size() == 0)
@@ -101,17 +103,17 @@ void display()
                 N2D::render::sphere(cfg, N2D::render::Color( 0,0,0, 160 ), true);
             }
         }
-    }
+    }*/
     
     if( planning_cells.size() == 0 && !render_workspace )
     {
         // Decompose C-Space
-        algorithms::KDDecomposer<ArmRobot<2>> sampler(robot, obstacle_manager, epsilon);
+        algorithms::KDDecomposer<ArmRobot<DIM>> sampler(robot, obstacle_manager, epsilon);
         //sampler.DecomposeSpace();
         sampler.ShallowDecompose(M_PI/128);
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());
         
-        algorithms::Analyzer<ArmRobot<2>> analyzer( sampler );
+        algorithms::Analyzer<ArmRobot<DIM>> analyzer( sampler );
         //importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
         importance = analyzer.build_path_importance_matrix(M_PI/8, M_PI/64);
         printf("Finished building importance matrix!\n");
@@ -127,7 +129,7 @@ void display()
         
         for (int i = 0; i < planning_cells.size(); i++)
         {
-            ND::sphere<2> temp_sphere = planning_cells[i].sphere();
+            ND::sphere<DIM> temp_sphere = planning_cells[i].sphere();
             N2D::sphere temp2d_sphere( N2D::v2( temp_sphere.center()[0], temp_sphere.center()[1] ), temp_sphere.radius(), N2D::SPHEREMETRIC::LINFTY );
             
             if( planning_cells[i].visited() )
@@ -170,16 +172,16 @@ void display()
         }
     }
     
-    /*
-    std::vector<ND::vec<5>> records;
-    for( int i = 0; i < planning_cells.size(); i++ )
-    {
-        ND::vec<3> center = planning_cells[i].sphere().center();
-        double radius = planning_cells[i].radius();
-        records.emplace_back(center[0], center[1], center[2], radius, importance[i] );
-    }
-    write2file( "records.txt", records);
-    */
+    
+     std::vector<ND::vec<5>> records;
+     for( int i = 0; i < planning_cells.size(); i++ )
+     {
+         ND::vec<3> center = planning_cells[i].sphere().center();
+         double radius = planning_cells[i].radius();
+         records.push_back(ND::vec<5>({center[0], center[1], center[2], radius, importance[i]}));
+     }
+     write2file( "/Users/Yinan/workspace/MetriCells/MetricCells/scenarios/3rarm_records.txt", records);
+     
     
     N2D::render::flush();
 }
@@ -196,5 +198,5 @@ int main()
     
     N2D::render::main_loop();
     return 0;
-
+    
 }

@@ -10,10 +10,23 @@
 		B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B30014041AE4407500D9C8CE /* armrobot_planning.cpp */; };
 		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+		FDA6223B1AEEC0DB00772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
+		FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
+		FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+		FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B3E678831AE4379100A0D287 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		FDA6223E1AEEC1BD00772004 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -45,6 +58,8 @@
 		B30014191AE599E900D9C8CE /* priority_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = priority_queue.h; sourceTree = "<group>"; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD841DC01AE5E33D0027DE00 /* PRM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRM.h; sourceTree = "<group>"; };
+		FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 3armrobot_planning.cpp; sourceTree = "<group>"; };
+		FDA622401AEEC1BD00772004 /* 3RRobot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3RRobot; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +72,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FDA6223D1AEEC1BD00772004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */,
+				FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -66,6 +90,7 @@
 				B30014081AE4408E00D9C8CE /* armrobot.h */,
 				B30014051AE4407500D9C8CE /* armrobot.cpp */,
 				B30014041AE4407500D9C8CE /* armrobot_planning.cpp */,
+				FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */,
 			);
 			path = scenarios;
 			sourceTree = SOURCE_ROOT;
@@ -137,6 +162,7 @@
 				B30014161AE44EE500D9C8CE /* GLUT.framework */,
 				B30014141AE44EE100D9C8CE /* OpenGL.framework */,
 				B3E678871AE4379100A0D287 /* MetricCells */,
+				FDA622411AEEC1BD00772004 /* 3RRobot */,
 				B3E678861AE4379100A0D287 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -145,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				B3E678851AE4379100A0D287 /* MetricCells */,
+				FDA622401AEEC1BD00772004 /* 3RRobot */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,6 +183,13 @@
 				B30013E91AE43AB100D9C8CE /* basics */,
 			);
 			path = MetricCells;
+			sourceTree = "<group>";
+		};
+		FDA622411AEEC1BD00772004 /* 3RRobot */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3RRobot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +212,23 @@
 			productReference = B3E678851AE4379100A0D287 /* MetricCells */;
 			productType = "com.apple.product-type.tool";
 		};
+		FDA6223F1AEEC1BD00772004 /* 3RRobot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDA622441AEEC1BD00772004 /* Build configuration list for PBXNativeTarget "3RRobot" */;
+			buildPhases = (
+				FDA6223C1AEEC1BD00772004 /* Sources */,
+				FDA6223D1AEEC1BD00772004 /* Frameworks */,
+				FDA6223E1AEEC1BD00772004 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = 3RRobot;
+			productName = 3RRobot;
+			productReference = FDA622401AEEC1BD00772004 /* 3RRobot */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,6 +240,9 @@
 				TargetAttributes = {
 					B3E678841AE4379100A0D287 = {
 						CreatedOnToolsVersion = 6.3;
+					};
+					FDA6223F1AEEC1BD00772004 = {
+						CreatedOnToolsVersion = 6.3.1;
 					};
 				};
 			};
@@ -205,6 +259,7 @@
 			projectRoot = "";
 			targets = (
 				B3E678841AE4379100A0D287 /* MetricCells */,
+				FDA6223F1AEEC1BD00772004 /* 3RRobot */,
 			);
 		};
 /* End PBXProject section */
@@ -214,7 +269,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDA6223B1AEEC0DB00772004 /* 3armrobot_planning.cpp in Sources */,
 				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDA6223C1AEEC1BD00772004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +376,24 @@
 			};
 			name = Release;
 		};
+		FDA622451AEEC1BD00772004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FDA622461AEEC1BD00772004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -332,6 +414,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FDA622441AEEC1BD00772004 /* Build configuration list for PBXNativeTarget "3RRobot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDA622451AEEC1BD00772004 /* Debug */,
+				FDA622461AEEC1BD00772004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
