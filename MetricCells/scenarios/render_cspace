@@ -21,12 +21,14 @@ def clear_screen():
  
 def makeMaterial(weight):
     mat = bpy.data.materials.new(str(weight))
-    mat.type = 'VOLUME'
-    vol = mat.volume;
-    vol.density = 0.0;
+    mat.diffuse_color = (1,0,0)
+    mat.diffuse_shader = 'LAMBERT' 
+    mat.diffuse_intensity = 1.0 
+    mat.use_transparency = True;
+    mat.alpha = weight/255.0;
     return mat
 
-def create_cell( x,y,z, r, w ):
+def create_cell( x,y,z, r ):
     # Create a simple cube.
     bpy.ops.mesh.primitive_cube_add()
  
@@ -36,12 +38,24 @@ def create_cell( x,y,z, r, w ):
     # Get the cube object and rename it.
     cube = bpy.context.object
     cube.location = (x,y,z);
-    cube.data.materials.append( makeMaterial(w) );
+    cube.draw_type = 'WIRE'
+    
+def create_sphere( x,y,z, r ):
+    # Create a simple cube.
+    bpy.ops.mesh.primitive_uv_sphere_add()
+ 
+    #Resize the cube.
+    bpy.ops.transform.resize(value=(r, r, r))
+ 
+    # Get the cube object and rename it.
+    sphere = bpy.context.object
+    sphere.location = (x,y,z);
+    sphere.data.materials.append( makeMaterial(r) );
 
 
 
-create_cell(1,1,0, 1, 100)
-create_cell(3.5,1,0, 1, 100)
-create_cell(6,1,0, 1, 100)
+create_cell(-2,1,0, 1)
+create_sphere( -2,1, 0, 0.3 )
+
 
 #clear_screen()
