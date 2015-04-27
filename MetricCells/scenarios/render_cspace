@@ -1,0 +1,47 @@
+import bpy
+
+def clear_screen():
+    for material in bpy.data.materials:
+        material.user_clear();
+        bpy.data.materials.remove(material);
+        
+    # gather list of items of interest.
+    candidate_list = [item.name for item in bpy.data.objects if item.type == "MESH"]
+ 
+    # select them only.
+    for object_name in candidate_list:
+        bpy.data.objects[object_name].select = True
+ 
+    # remove all selected.
+    bpy.ops.object.delete()
+ 
+    # remove the meshes, they have no users anymore.
+    for item in bpy.data.meshes:
+        bpy.data.meshes.remove(item)
+ 
+def makeMaterial(weight):
+    mat = bpy.data.materials.new(str(weight))
+    mat.type = 'VOLUME'
+    vol = mat.volume;
+    vol.density = 0.0;
+    return mat
+
+def create_cell( x,y,z, r, w ):
+    # Create a simple cube.
+    bpy.ops.mesh.primitive_cube_add()
+ 
+    #Resize the cube.
+    bpy.ops.transform.resize(value=(r, r, r))
+ 
+    # Get the cube object and rename it.
+    cube = bpy.context.object
+    cube.location = (x,y,z);
+    cube.data.materials.append( makeMaterial(w) );
+
+
+
+create_cell(1,1,0, 1, 100)
+create_cell(3.5,1,0, 1, 100)
+create_cell(6,1,0, 1, 100)
+
+#clear_screen()
