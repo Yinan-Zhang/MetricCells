@@ -180,7 +180,7 @@ void display()
          double radius = planning_cells[i].radius();
          records.push_back(ND::vec<5>({center[0], center[1], center[2], radius, importance[i]}));
      }
-     write2file( "/Users/Yinan/workspace/MetriCells/MetricCells/scenarios/3rarm_records.txt", records);
+     write2file( "/Users/Yinan/Workspace/MetricCells/MetricCells/scenarios/3rarm_records.txt", records);
      
     
     N2D::render::flush();
