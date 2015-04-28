@@ -93,17 +93,17 @@ void display()
     //CSpaceScanner<ArmRobot<DIM>> scanner( robot, obstacle_manager );
     
     /*
-    if(scan_space)
-    {
-        if(obst_cfgs.size() == 0)
-            obst_cfgs = scanner.scan(robotics::Range(0.0, M_PI - 0.0000001), robotics::Range(0.0, M_PI - 0.0000001), 0.005);
-        if(!render_workspace)
-        {
-            for ( N2D::sphere cfg: obst_cfgs) {
-                N2D::render::sphere(cfg, N2D::render::Color( 0,0,0, 160 ), true);
-            }
-        }
-    }*/
+     if(scan_space)
+     {
+     if(obst_cfgs.size() == 0)
+     obst_cfgs = scanner.scan(robotics::Range(0.0, M_PI - 0.0000001), robotics::Range(0.0, M_PI - 0.0000001), 0.005);
+     if(!render_workspace)
+     {
+     for ( N2D::sphere cfg: obst_cfgs) {
+     N2D::render::sphere(cfg, N2D::render::Color( 0,0,0, 160 ), true);
+     }
+     }
+     }*/
     
     if( planning_cells.size() == 0 && !render_workspace )
     {
@@ -127,6 +127,7 @@ void display()
         const double max_weight = *std::max_element(std::begin(importance), std::end(importance));
         const double min_weight = *std::min_element(std::begin(importance), std::end(importance));
         
+        int count = 0;
         for (int i = 0; i < planning_cells.size(); i++)
         {
             ND::sphere<DIM> temp_sphere = planning_cells[i].sphere();
@@ -142,11 +143,13 @@ void display()
                 N2D::render::sphere(temp2d_sphere, N2D::render::Color( 50,50,50, 40 ), false);
                 if( temp2d_sphere.radius() <= M_PI/64)
                 {
+                    count ++;
                     double weight = importance[i] / ( max_weight/8.0 - min_weight );
                     N2D::render::sphere(temp2d_sphere, N2D::render::Color( 255*weight,0,0, 40 ), true);
                 }
             }
         }
+        std::cout << count << '\n';
     }
     
     // Render obstacles
@@ -172,16 +175,16 @@ void display()
         }
     }
     
-    
-     std::vector<ND::vec<5>> records;
-     for( int i = 0; i < planning_cells.size(); i++ )
-     {
-         ND::vec<3> center = planning_cells[i].sphere().center();
-         double radius = planning_cells[i].radius();
-         records.push_back(ND::vec<5>({center[0], center[1], center[2], radius, importance[i]}));
-     }
-     write2file( "/Users/Yinan/Workspace/MetricCells/MetricCells/scenarios/3rarm_records.txt", records);
-     
+    /*
+    std::vector<ND::vec<5>> records;
+    for( int i = 0; i < planning_cells.size(); i++ )
+    {
+        ND::vec<3> center = planning_cells[i].sphere().center();
+        double radius = planning_cells[i].radius();
+        records.push_back(ND::vec<5>({center[0], center[1], center[2], radius, importance[i]/(radius*radius*radius)}));
+    }
+    write2file( "/Users/Yinan/Workspace/MetricCells/MetricCells/scenarios/3rarm_records.txt", records);
+    */
     
     N2D::render::flush();
 }

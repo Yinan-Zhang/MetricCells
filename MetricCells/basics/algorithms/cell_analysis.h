@@ -73,7 +73,7 @@ namespace algorithms {
                     
                     unordered_set<int> visited;
                     for (int j = 0; j < cells.size(); j++) {
-                        double impt = matrix[i][j] * std::pow( (double)(get_cell(i).radius() * get_cell(j).radius()), 2);
+                        double impt = matrix[i][j] * std::pow( (double)(get_cell(i).radius() * get_cell(j).radius()), IROBOT::DIM);
                         int curr = prev[j];
                         while( prev[curr] != -1 )
                         {
