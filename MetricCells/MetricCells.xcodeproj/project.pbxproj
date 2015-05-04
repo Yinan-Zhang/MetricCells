@@ -10,7 +10,6 @@
 		B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B30014041AE4407500D9C8CE /* armrobot_planning.cpp */; };
 		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
-		FDA6223B1AEEC0DB00772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
 		FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
@@ -269,7 +268,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDA6223B1AEEC0DB00772004 /* 3armrobot_planning.cpp in Sources */,
 				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +420,7 @@
 				FDA622461AEEC1BD00772004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

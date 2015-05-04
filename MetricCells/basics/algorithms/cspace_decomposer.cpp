@@ -79,21 +79,27 @@ void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
                 get_node(node_index).set_free();
             }
         }
-        else if (obstacle_manager_.penetration(robot_)  >= cell_radius  )
+        else
         {
-            continue;
+            const double penetration = obstacle_manager_.penetration(robot_);
+            if ( penetration >= cell_radius  )
+            {
+                continue;
+            }
+            /*
+            else if (cell_radius > penetration )
+            {
+                get_node(node_index).set_covered();
+                get_node(node_index).set_free();
+            }*/
+            else if (cell_radius > min_radius )
+            {
+                SplitCell(node_index);
+                for (int i = 0; i < NUM_SPLITS; ++i)
+                    stack.emplace(get_node(node_index).get_children() + i);
+            }
         }
-        else if (cell_radius > min_radius )
-        {
-            SplitCell(node_index);
-            for (int i = 0; i < NUM_SPLITS; ++i)
-                stack.emplace(get_node(node_index).get_children() + i);
-        }
-        else if (cell_radius <= min_radius )
-        {
-            //get_node(node_index).set_covered();
-            //get_node(node_index).set_mix();
-        }
+        
     }
     
     nodes.shrink_to_fit();
