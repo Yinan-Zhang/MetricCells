@@ -18,6 +18,7 @@
 #include "../basics/algorithms/cspace_decomposer.h"
 #include "../basics/algorithms/cell_analysis.h"
 #include "../basics/algorithms/PRM.h"
+#include "../basics/algorithms/Planner.h"
 
 // Basic configuration set up
 int     num_samples     = 1000;
@@ -78,8 +79,8 @@ void display()
     
     
     // Set up the world
-    std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
-    //std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    //std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
     //std::vector<N2D::Polygon> polies = parse_file("/Users/yuhanlyu/Documents/RSS2015/C++/RSS2015/ji.txt", geometry::v2(M_PI, M_PI));
     std::vector<robotics::Obstacle> obsts;
     for (N2D::Polygon poly : polies) {
@@ -108,13 +109,9 @@ void display()
         // Decompose C-Space
         algorithms::KDDecomposer<ArmRobot<2>> sampler(robot, obstacle_manager, epsilon);
         //sampler.DecomposeSpace();
-        sampler.ShallowDecompose(M_PI/128);
+        //sampler.ShallowDecompose(M_PI/128);
+        sampler.AdaptiveDecompose(M_PI/128, M_PI/1024);
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());
-        
-        algorithms::Analyzer<ArmRobot<2>> analyzer( sampler );
-        //importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
-        importance = analyzer.build_path_importance_matrix(M_PI/8, M_PI/64);
-        printf("Finished building importance matrix!\n");
         
         planning_cells = sampler.get_free_cells();
     }
@@ -122,8 +119,8 @@ void display()
     // Render Cells
     if( render_cells && !render_workspace )
     {
-        const double max_weight = *std::max_element(std::begin(importance), std::end(importance));
-        const double min_weight = *std::min_element(std::begin(importance), std::end(importance));
+        const double max_weight = 0;//*std::max_element(std::begin(importance), std::end(importance));
+        const double min_weight = 0;//*std::min_element(std::begin(importance), std::end(importance));
         
         for (int i = 0; i < planning_cells.size(); i++)
         {
@@ -138,11 +135,12 @@ void display()
             else
             {
                 N2D::render::sphere(temp2d_sphere, N2D::render::Color( 50,50,50, 40 ), false);
+                /*
                 if( temp2d_sphere.radius() <= M_PI/64)
                 {
                     double weight = importance[i] / ( max_weight/8.0 - min_weight );
                     N2D::render::sphere(temp2d_sphere, N2D::render::Color( 255*weight,0,0, 40 ), true);
-                }
+                }*/
             }
         }
     }

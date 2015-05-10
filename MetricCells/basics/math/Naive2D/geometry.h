@@ -17,10 +17,10 @@
 #include <limits>
 #include <array>
 
-double N2D_MAX_DOUBLE = std::numeric_limits<double>::infinity();
-
 namespace N2D
 {
+    double N2D_MAX_DOUBLE = std::numeric_limits<double>::infinity();
+    
     /*****************************
      * 2D Vector
      *****************************/

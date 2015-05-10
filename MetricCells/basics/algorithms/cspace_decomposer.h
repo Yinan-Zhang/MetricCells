@@ -4,6 +4,9 @@
 #include <vector>
 #include <list>
 #include <array>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "../math/geoND.h"
 #include "../robotics/obstacles.h"
@@ -105,8 +108,9 @@ namespace algorithms {
         static constexpr int DIM = IROBOT::DIM;
         static constexpr int NUM_SPLITS = 1 << DIM;
         using CONFIG = typename IROBOT::CONFIG;
+        int node_id;
 
-        explicit Cell( const ND::sphere<DIM>& s ) : c_(s) {boundaries.clear(); boundaries.shrink_to_fit(); }
+        explicit Cell( const ND::sphere<DIM>& s, int nodeid ) : c_(s),node_id(nodeid) {boundaries.clear(); boundaries.shrink_to_fit(); }
 
         Cell& operator=(const Cell<IROBOT>& rhs)
         {
@@ -173,10 +177,10 @@ namespace algorithms {
     class TreeNode {
     public:
         static constexpr int NUM_SPLITS = 1 << DIM;
-        static constexpr char FREE_MASK = 0x0001;
-        static constexpr char MIX_MASK = 0x0010;
-        static constexpr char COVERED_MASK = 0x0100;
-        TreeNode(const ND::vec<DIM>& c, int arg_depth) : center_{c}, children{NOT_FOUND}, depth_(arg_depth) {}
+        static constexpr char FREE_MASK = 1;
+        static constexpr char MIX_MASK = 2;
+        static constexpr char COVERED_MASK = 4;
+        TreeNode(const ND::vec<DIM>& c, int arg_depth) : center_{c}, children{NOT_FOUND}, depth_(arg_depth), info(0) {}
         const ND::vec<DIM>& center() const { return center_; }
         int depth() const { return depth_; }
         int get_children() const { return children; }
@@ -185,6 +189,7 @@ namespace algorithms {
         void set_cell(int cell_number) { cell = cell_number; }
         bool is_free() const { return info & FREE_MASK; }
         void set_free() { info |= FREE_MASK; }
+        void set_unfree() { if(is_covered()) info = 0 | COVERED_MASK; else info = 0; }
         void set_mix() { info |= MIX_MASK; }
         bool is_covered() const { return info & COVERED_MASK; }
         void set_covered() { info |= COVERED_MASK; }
@@ -226,9 +231,10 @@ namespace algorithms {
         
         // @return a vector of indices of boundary cells. ( cells that partially contain obstacles )
         void ShallowDecompose(double min_radius);
+        void AdaptiveDecompose(double larg_radius, double min_radius);
         
         // Decompose the subspace.
-        void DecomposeSubspace(int subspace_index);
+        void DecomposeSubspaces(std::stack<int>& stack,double large_radius, double min_radius, std::unordered_map<int, double>& impt_map);
         
         void DecomposeSpace();
         //void ScanCollisionSpace();
@@ -238,7 +244,7 @@ namespace algorithms {
         const std::vector<Cell<IROBOT>>& get_free_cells() const { return cells; }
 
     private:
-        void build_edges();
+        void build_edges(bool clear_nodes = true);
         bool delete_unsafe_cells(int node);
         bool merge_free_cells(int node);
         void create_free_cells(int node);
@@ -381,8 +387,11 @@ namespace algorithms {
             return fixdim;
         }
         
-        int get_new_cell(const ND::vec<DIM>& c, double arg_r) {
-            cells.emplace_back(ND::sphere<DIM>(c, arg_r, ND::SPHEREMETRIC::LINFTY));
+        // @param c: center
+        // @param arg_r: radius
+        // @param nid: node id
+        int get_new_cell(const ND::vec<DIM>& c, double arg_r, int nid) {
+            cells.emplace_back(ND::sphere<DIM>(c, arg_r, ND::SPHEREMETRIC::LINFTY), nid);
             if (cells.size() % 1000000 == 0)
                 std::cout << "Number of cell is " << cells.size() << '\n';
             return (int)cells.size() - 1;

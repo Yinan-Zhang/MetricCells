@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>3RRobot.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>MetricCells.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>B3E678841AE4379100A0D287</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDA6223F1AEEC1BD00772004</key>
 		<dict>
 			<key>primary</key>
 			<true/>

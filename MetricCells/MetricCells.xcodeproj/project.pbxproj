@@ -10,6 +10,7 @@
 		B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B30014041AE4407500D9C8CE /* armrobot_planning.cpp */; };
 		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+		B31C996F1B00012300AB4521 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C996D1B00012300AB4521 /* Planner.cpp */; };
 		FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
@@ -55,6 +56,8 @@
 		B30014161AE44EE500D9C8CE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B30014181AE5928700D9C8CE /* cell_analysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cell_analysis.h; sourceTree = "<group>"; };
 		B30014191AE599E900D9C8CE /* priority_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = priority_queue.h; sourceTree = "<group>"; };
+		B31C996D1B00012300AB4521 /* Planner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planner.cpp; sourceTree = "<group>"; };
+		B31C996E1B00012300AB4521 /* Planner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Planner.h; sourceTree = "<group>"; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD841DC01AE5E33D0027DE00 /* PRM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRM.h; sourceTree = "<group>"; };
 		FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 3armrobot_planning.cpp; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 		B30013EA1AE43AB100D9C8CE /* algorithms */ = {
 			isa = PBXGroup;
 			children = (
+				B31C996D1B00012300AB4521 /* Planner.cpp */,
+				B31C996E1B00012300AB4521 /* Planner.h */,
 				B30014091AE4467F00D9C8CE /* cspace_decomposer.cpp */,
 				B300140A1AE4467F00D9C8CE /* cspace_decomposer.h */,
 				B300140B1AE4467F00D9C8CE /* file_reader.h */,
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B31C996F1B00012300AB4521 /* Planner.cpp in Sources */,
 				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

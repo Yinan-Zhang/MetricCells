@@ -75,7 +75,7 @@ namespace algorithms {
                     for (int j = 0; j < cells.size(); j++) {
                         double impt = matrix[i][j] * std::pow( (double)(get_cell(i).radius() * get_cell(j).radius()), IROBOT::DIM);
                         int curr = prev[j];
-                        while( prev[curr] != -1 )
+                        while( curr < prev.size() && prev[curr] != -1 && prev[curr] >= 0 )
                         {
                             importance[ curr ] += impt;// std::pow( (double)(get_cell(curr).radius()), 2);
                             curr = prev[curr];

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yinan Zhang. All rights reserved.
 //
 
-#ifndef RSS2015_geometry_h
-#define RSS2015_geometry_h
+#ifndef _GEOMETRYND_H_
+#define _GEOMETRYND_H_
 
 #include <cassert>
 #include <vector>
@@ -17,10 +17,10 @@
 #include <limits>
 #include <array>
 
-static constexpr double MAX_DOUBLE = std::numeric_limits<double>::infinity();
-
 namespace ND
 {
+    static constexpr double MAX_DOUBLE = std::numeric_limits<double>::infinity();
+    
     /*****************************
      * N-D Vector
      *****************************/

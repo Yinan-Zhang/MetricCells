@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yinan Zhang. All rights reserved.
 //
 
-#ifndef RSS2015_polygon_h
-#define RSS2015_polygon_h
+#ifndef N2D_polygon_h
+#define N2D_polygon_h
 
 #include <cassert>
 #include <vector>
@@ -120,7 +120,7 @@ namespace N2D {
             if(this->contains(pt))
                 return 0.0;
             
-            double min = MAX_DOUBLE;
+            double min = N2D_MAX_DOUBLE;
             unsigned size = (unsigned)vertices.size();
             for(unsigned int i = 0; i < size; i++)
             {
@@ -157,7 +157,7 @@ namespace N2D {
         {
             if( this->naive_intersects(other) )
                 return 0.0;
-            double min = MAX_DOUBLE;
+            double min = N2D_MAX_DOUBLE;
             unsigned size = (unsigned)vertices.size();
             for(unsigned int i = 1; i < size; i++)
             {

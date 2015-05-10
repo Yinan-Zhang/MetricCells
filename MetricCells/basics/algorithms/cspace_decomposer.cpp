@@ -1,5 +1,6 @@
 #ifndef CSPACE_DECOMPOSER_CPP
 #define CSPACE_DECOMPOSER_CPP
+
 #include <limits>
 #include <ctime>
 #include <utility>
@@ -9,6 +10,7 @@
 #include <array>
 #include "cspace_decomposer.h"
 #include "../math/geoND.h"
+#include "cell_analysis.h"
 
 template <typename IROBOT>
 algorithms::KDDecomposer<IROBOT>::KDDecomposer(IROBOT& robot,
@@ -64,7 +66,7 @@ void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
                 get_node(node_index).set_covered();
                 get_node(node_index).set_free();
                 if (!MERGE_CELLS)
-                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), cell_radius));
+                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), cell_radius, node_index));
             }
             else if ( cell_radius > min_radius )
             {
@@ -107,12 +109,95 @@ void algorithms::KDDecomposer<IROBOT>::ShallowDecompose( double min_radius )
     std::clock_t    t1 = std::clock();
     std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
     clean_tree();
-    build_edges();
+    build_edges(false);
 }
 
-void  DecomposeSubspace(int subspace_index)
+/**
+ * Adaptively decompose the space
+ */
+template <typename IROBOT>
+void algorithms::KDDecomposer<IROBOT>::AdaptiveDecompose(double larg_radius, double min_radius)
 {
+    this->ShallowDecompose(larg_radius);
+    algorithms::Analyzer<IROBOT> analyzer( *this );
+    //importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
+    std::vector<double> importance = analyzer.build_path_importance_matrix(M_PI/8, larg_radius);
+    // node_index --> importance
+    std::unordered_map<int, double> impt_map;
+    std::stack<int> stack;
+    for( int i = 0; i < this->cells.size(); i++ )
+    {
+        double cell_radius = get_cell(i).radius();
+        if(cell_radius > larg_radius*2)
+            continue;
+        stack.push(get_cell(i).node_id);
+        impt_map[get_cell(i).node_id] = importance[i];
+    }
     
+    this->DecomposeSubspaces( stack, larg_radius, min_radius, impt_map );
+    nodes.shrink_to_fit();
+    cells.shrink_to_fit();
+    clean_tree();
+    build_edges();
+}
+template <typename IROBOT>
+void algorithms::KDDecomposer<IROBOT>::DecomposeSubspaces(std::stack<int>& stack, double large_radius, double min_radius, std::unordered_map<int, double>& impt_map)
+{
+    while (!stack.empty())
+    {
+        int node_index = stack.top();
+        stack.pop();
+        
+        double cell_radius = radius_array[get_node(node_index).depth()];
+        double local_min_radius = std::min( large_radius/2.0, std::max(min_radius, large_radius/(impt_map[node_index]/50.0)));
+        
+        robot_.set_config(get_node(node_index).center());
+        double dist_to_obsts = obstacle_manager_.dist_to_obsts(robot_);
+        if (dist_to_obsts > 0)
+        {
+            // Create free space ball
+            double initial_guess = CalcFreeCellRadius(dist_to_obsts);
+            double radius = robot_.free_space_oracle(obstacle_manager_, initial_guess /* lower bound */, 2 * initial_guess /* upper bound */);
+            if (robot_.subconvex_radius(obstacle_manager_, radius, cell_radius))
+            {
+                get_node(node_index).set_covered();
+                get_node(node_index).set_free();
+                if (!MERGE_CELLS)
+                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), cell_radius, node_index));
+            }
+            else if( cell_radius > local_min_radius )
+            {
+                get_node(node_index).set_unfree();
+                SplitCell(node_index);
+                for (int i = 0; i < NUM_SPLITS; ++i)
+                {
+                    impt_map[get_node(node_index).get_children()+i] = impt_map[node_index];
+                    stack.emplace(get_node(node_index).get_children()+i);
+                }
+            }
+            else{ get_node(node_index).set_unfree(); }
+        }
+        else
+        {
+            get_node(node_index).set_unfree();
+            const double penetration = obstacle_manager_.penetration(robot_);
+            if ( penetration / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * cell_radius  )
+            {
+                continue;
+            }
+            else if (cell_radius > local_min_radius )
+            {
+                SplitCell(node_index);
+                for (int i = 0; i < NUM_SPLITS; ++i)
+                {
+                    impt_map[get_node(node_index).get_children() + i] = impt_map[node_index];
+                    stack.emplace(get_node(node_index).get_children() + i);
+                }
+
+            }
+        }
+        
+    }
 }
 
 /**
@@ -152,7 +237,7 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSpace() {
                 get_node(node_index).set_covered();
                 get_node(node_index).set_free();
                 if (!MERGE_CELLS)
-                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), radius_array[get_node(node_index).depth()]));
+                    get_node(node_index).set_cell(get_new_cell(get_node(node_index).center(), radius_array[get_node(node_index).depth()], node_index));
             }
             else if (dist_to_obsts >= epsilon_ * 0.5 || radius_array[get_node(node_index).depth()] >= robot_.get_s_small(epsilon_ * 0.5) )
             {
@@ -232,7 +317,7 @@ template<typename IROBOT>
 void algorithms::KDDecomposer<IROBOT>::create_free_cells(int node)
 {
     if (get_node(node).is_free()) {
-        get_node(node).set_cell(get_new_cell(get_node(node).center(), radius_array[get_node(node).depth()]));
+        get_node(node).set_cell(get_new_cell(get_node(node).center(), radius_array[get_node(node).depth()], node));
         return;
     }
     if (get_node(node).get_children() != NOT_FOUND)
@@ -246,8 +331,9 @@ void algorithms::KDDecomposer<IROBOT>::create_free_cells(int node)
  * Time cost for finding neighbors of each cell with 8014392 boundaries:24505ms
  */
 template<typename IROBOT>
-void algorithms::KDDecomposer<IROBOT>::build_edges()
+void algorithms::KDDecomposer<IROBOT>::build_edges(bool clear_nodes)
 {
+    all_boundaries.clear();
     std::vector<CONFIG> all_corners;
     std::vector<const CONFIG*> corner_configs;
     all_corners.reserve(1000000000);
@@ -261,6 +347,8 @@ void algorithms::KDDecomposer<IROBOT>::build_edges()
     for (const CONFIG* cfg : corner_configs) {
         containing_cells.clear();
         ContainedCells(cfg->vector(), containing_cells);
+        if(containing_cells.size() == 0)
+            continue;
         for (int i = 0; i < containing_cells.size() - 1; ++i) {
             for (int j = i + 1; j < containing_cells.size(); ++j) {
                 if (is_adjacent(containing_cells[i], containing_cells[j]))
@@ -285,7 +373,7 @@ void algorithms::KDDecomposer<IROBOT>::build_edges()
     std::cout << "Time cost for finding neighbors of each cell with " << all_boundaries.size() << " boundaries:" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
     std::clock_t    t2 = std::clock();
     all_boundaries.shrink_to_fit();
-    nodes.clear();
+    if(clear_nodes) nodes.clear();
     nodes.shrink_to_fit();
     for (Cell<IROBOT>& cell : cells)
         cell.shrink_to_fit();
