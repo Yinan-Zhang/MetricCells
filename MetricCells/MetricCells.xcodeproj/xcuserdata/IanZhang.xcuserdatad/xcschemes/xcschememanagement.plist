@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>4RRobot.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>MetricCells.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,6 +22,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>B31C99761B01524400AB4521</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B3E678841AE4379100A0D287</key>
 		<dict>
 			<key>primary</key>

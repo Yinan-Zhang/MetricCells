@@ -120,14 +120,14 @@ void algorithms::KDDecomposer<IROBOT>::AdaptiveDecompose(double larg_radius, dou
     this->ShallowDecompose(larg_radius);
     algorithms::Analyzer<IROBOT> analyzer( *this );
     //importance = analyzer.build_simple_weighted_centrality_matrix(M_PI/8, M_PI/64);
-    std::vector<double> importance = analyzer.build_path_importance_matrix(M_PI/8, larg_radius);
+    std::vector<double> importance = analyzer.build_path_importance_matrix(larg_radius * 7, larg_radius);
     // node_index --> importance
     std::unordered_map<int, double> impt_map;
     std::stack<int> stack;
     for( int i = 0; i < this->cells.size(); i++ )
     {
         double cell_radius = get_cell(i).radius();
-        if(cell_radius > larg_radius*4)
+        if(cell_radius > larg_radius*2)
             continue;
         stack.push(get_cell(i).node_id);
         impt_map[get_cell(i).node_id] = importance[i];

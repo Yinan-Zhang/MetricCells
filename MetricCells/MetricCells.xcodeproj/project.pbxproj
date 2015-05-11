@@ -11,12 +11,25 @@
 		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		B31C996F1B00012300AB4521 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C996D1B00012300AB4521 /* Planner.cpp */; };
+		B31C99721B01521000AB4521 /* 4armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */; };
+		B31C997E1B01525F00AB4521 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+		B31C997F1B01525F00AB4521 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
+		B31C99801B01526B00AB4521 /* 4armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */; };
 		FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B31C99751B01524400AB4521 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		B3E678831AE4379100A0D287 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,6 +71,8 @@
 		B30014191AE599E900D9C8CE /* priority_queue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = priority_queue.h; sourceTree = "<group>"; };
 		B31C996D1B00012300AB4521 /* Planner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planner.cpp; sourceTree = "<group>"; };
 		B31C996E1B00012300AB4521 /* Planner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Planner.h; sourceTree = "<group>"; };
+		B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4armrobot_planning.cpp; sourceTree = "<group>"; };
+		B31C99771B01524400AB4521 /* 4RRobot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 4RRobot; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD841DC01AE5E33D0027DE00 /* PRM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRM.h; sourceTree = "<group>"; };
 		FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 3armrobot_planning.cpp; sourceTree = "<group>"; };
@@ -65,6 +80,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B31C99741B01524400AB4521 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B31C997E1B01525F00AB4521 /* GLUT.framework in Frameworks */,
+				B31C997F1B01525F00AB4521 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3E678821AE4379100A0D287 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +117,7 @@
 				B30014051AE4407500D9C8CE /* armrobot.cpp */,
 				B30014041AE4407500D9C8CE /* armrobot_planning.cpp */,
 				FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */,
+				B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */,
 			);
 			path = scenarios;
 			sourceTree = SOURCE_ROOT;
@@ -160,6 +185,13 @@
 			path = Naive2D;
 			sourceTree = "<group>";
 		};
+		B31C99781B01524400AB4521 /* 4RRobot */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 4RRobot;
+			sourceTree = "<group>";
+		};
 		B3E6787C1AE4379100A0D287 = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +199,7 @@
 				B30014141AE44EE100D9C8CE /* OpenGL.framework */,
 				B3E678871AE4379100A0D287 /* MetricCells */,
 				FDA622411AEEC1BD00772004 /* 3RRobot */,
+				B31C99781B01524400AB4521 /* 4RRobot */,
 				B3E678861AE4379100A0D287 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -176,6 +209,7 @@
 			children = (
 				B3E678851AE4379100A0D287 /* MetricCells */,
 				FDA622401AEEC1BD00772004 /* 3RRobot */,
+				B31C99771B01524400AB4521 /* 4RRobot */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,6 +233,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B31C99761B01524400AB4521 /* 4RRobot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B31C997B1B01524400AB4521 /* Build configuration list for PBXNativeTarget "4RRobot" */;
+			buildPhases = (
+				B31C99731B01524400AB4521 /* Sources */,
+				B31C99741B01524400AB4521 /* Frameworks */,
+				B31C99751B01524400AB4521 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = 4RRobot;
+			productName = 4RRobot;
+			productReference = B31C99771B01524400AB4521 /* 4RRobot */;
+			productType = "com.apple.product-type.tool";
+		};
 		B3E678841AE4379100A0D287 /* MetricCells */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3E6788C1AE4379100A0D287 /* Build configuration list for PBXNativeTarget "MetricCells" */;
@@ -242,6 +293,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Yinan Zhang";
 				TargetAttributes = {
+					B31C99761B01524400AB4521 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					B3E678841AE4379100A0D287 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -264,15 +318,25 @@
 			targets = (
 				B3E678841AE4379100A0D287 /* MetricCells */,
 				FDA6223F1AEEC1BD00772004 /* 3RRobot */,
+				B31C99761B01524400AB4521 /* 4RRobot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B31C99731B01524400AB4521 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B31C99801B01526B00AB4521 /* 4armrobot_planning.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3E678811AE4379100A0D287 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B31C99721B01521000AB4521 /* 4armrobot_planning.cpp in Sources */,
 				B31C996F1B00012300AB4521 /* Planner.cpp in Sources */,
 				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
 			);
@@ -289,6 +353,24 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		B31C997C1B01524400AB4521 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B31C997D1B01524400AB4521 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		B3E6788A1AE4379100A0D287 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -401,6 +483,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B31C997B1B01524400AB4521 /* Build configuration list for PBXNativeTarget "4RRobot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B31C997C1B01524400AB4521 /* Debug */,
+				B31C997D1B01524400AB4521 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		B3E678801AE4379100A0D287 /* Build configuration list for PBXProject "MetricCells" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
