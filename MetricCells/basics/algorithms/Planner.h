@@ -110,5 +110,5 @@ namespace algorithms {
         }
     };
 }
-//#include "Planner.cpp"
+#include "Planner.cpp"
 #endif /* defined(CSPACE_DECOMPOSER_H) */

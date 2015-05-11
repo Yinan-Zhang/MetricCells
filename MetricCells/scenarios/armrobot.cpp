@@ -36,7 +36,7 @@ ArmRobot<DIM>::ArmRobot(double anchor_x,
     // Set config ranges
     double e = 0.000000001;
     for (int i = 0; i < DIM; i++)
-        config_ranges_[i] = robotics::Range(0 + e, M_PI - e);
+        config_ranges_[i] = robotics::Range(-M_PI + e, M_PI - e);
     
     // build shapes of the robot
     std::array<N2D::v2, DIM+1> points = this->get_points();
