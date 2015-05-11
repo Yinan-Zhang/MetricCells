@@ -155,6 +155,7 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSubspaces(std::stack<int>& stack
         double dist_to_obsts = obstacle_manager_.dist_to_obsts(robot_);
         if (dist_to_obsts > 0)
         {
+            get_node(node_index).reset_info();
             // Create free space ball
             double initial_guess = CalcFreeCellRadius(dist_to_obsts);
             double radius = robot_.free_space_oracle(obstacle_manager_, initial_guess /* lower bound */, 2 * initial_guess /* upper bound */);
@@ -167,7 +168,6 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSubspaces(std::stack<int>& stack
             }
             else if( cell_radius > local_min_radius )
             {
-                get_node(node_index).set_unfree();
                 SplitCell(node_index);
                 for (int i = 0; i < NUM_SPLITS; ++i)
                 {
@@ -175,11 +175,10 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSubspaces(std::stack<int>& stack
                     stack.emplace(get_node(node_index).get_children()+i);
                 }
             }
-            else{ get_node(node_index).set_unfree(); }
         }
         else
         {
-            get_node(node_index).set_unfree();
+            get_node(node_index).reset_info();
             const double penetration = obstacle_manager_.penetration(robot_);
             if ( penetration / robot_.get_max_speed() >= (PENETRATION_CONSTANT / min_param_speed_) * cell_radius  )
             {

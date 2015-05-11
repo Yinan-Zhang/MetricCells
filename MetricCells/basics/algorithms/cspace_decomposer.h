@@ -193,6 +193,7 @@ namespace algorithms {
         void set_mix() { info |= MIX_MASK; }
         bool is_covered() const { return info & COVERED_MASK; }
         void set_covered() { info |= COVERED_MASK; }
+        void reset_info(){info = 0;};
     private:
         const ND::vec<DIM> center_;
         const int depth_;
