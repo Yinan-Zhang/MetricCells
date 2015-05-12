@@ -10,14 +10,16 @@
 
 
 template <size_t DIM>
-ArmRobot<DIM>::ArmRobot(double anchor_x,
-                        double anchor_y,
-                        const std::array<double, DIM>& lengths,
-                        const std::array<double, DIM>& max_speeds)
+ArmRobot<DIM>::ArmRobot(double anchor_x,                               // base x position
+                        double anchor_y,                               // base y position
+                        const std::array<double, DIM>& lengths,        // lengthe of each link
+                        const std::array<double, DIM>& max_speeds,     // max speed of each joint
+                        const std::array<robotics::Range, DIM>& ranges)
                         : anchor_x_ (anchor_x),
                           anchor_y_ (anchor_y),
                           chain_lengths_ (lengths),
-                          parameter_speeds(max_speeds)
+                          parameter_speeds(max_speeds),
+                          config_ranges_(ranges)
 {
     //parameter_speeds = max_speeds;
     // Calculate max linear speed
@@ -34,9 +36,9 @@ ArmRobot<DIM>::ArmRobot(double anchor_x,
     max_speed = max_linear_speeds[DIM - 1];
     
     // Set config ranges
-    double e = 0.000000001;
-    for (int i = 0; i < DIM; i++)
-        config_ranges_[i] = robotics::Range(0 + e, M_PI - e);
+    //double e = 0.000000001;
+    //for (int i = 0; i < DIM; i++)
+    //    config_ranges_[i] = robotics::Range(0 + e, M_PI - e);
     
     // build shapes of the robot
     std::array<N2D::v2, DIM+1> points = this->get_points();

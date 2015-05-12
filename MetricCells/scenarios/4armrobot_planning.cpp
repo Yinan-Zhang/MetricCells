@@ -37,7 +37,9 @@ bool    search_path     = true;
 // Set up the robot
 std::array<double, DIM> arm_lengths{0.6, 0.6, 0.6, 0.6 };
 std::array<double, DIM> max_angular_speeds{1.0, 1.0, 1.0, 1.0};
-ArmRobot<DIM> robot ( 0.1, M_PI/2, arm_lengths, max_angular_speeds);
+double eps = 0.000001;
+std::array<robotics::Range, DIM> cfg_ranges = std::array<robotics::Range, DIM>{robotics::Range( -0+eps, M_PI-eps ), robotics::Range( -0+eps, M_PI-eps ), robotics::Range( -0+eps, M_PI-eps ), robotics::Range( -0+eps, M_PI-eps ) };
+ArmRobot<DIM> robot ( 0.1, M_PI/2, arm_lengths, max_angular_speeds, cfg_ranges);
 std::vector<ArmRobot<DIM>::CONFIG> path;
 std::vector<N2D::sphere> obst_cfgs;
 std::vector<algorithms::Cell<ArmRobot<DIM>>> planning_cells;
@@ -118,7 +120,7 @@ void display()
         algorithms::KDDecomposer<ArmRobot<DIM>> sampler(robot, obstacle_manager, epsilon);
         std::clock_t    t0 = std::clock();
         //sampler.DecomposeSpace();
-        sampler.AdaptiveDecompose(M_PI/32, M_PI/4096);
+        sampler.AdaptiveDecompose(M_PI/64, M_PI/4096);
         std::clock_t    t1 = std::clock();
         std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());

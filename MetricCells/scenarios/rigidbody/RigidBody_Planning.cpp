@@ -33,7 +33,7 @@
 // Basic configuration set up
 int     num_samples     = 1000;
 bool    outside         = false;
-double  epsilon         = 0.1;
+double  epsilon         = 0.04;
 bool    write_to_file   = false;
 bool    use_oracle      = true;
 int     num_joints      = 2;
@@ -92,8 +92,8 @@ void display()
     //RigidBody::CONFIG start( {0.05, 0.05} );
     //RigidBody::CONFIG goal( {M_PI/2 + .25, 0.11} );
     
-    RigidBody::CONFIG start( {0.1, 0.2, 0.01} );
-    RigidBody::CONFIG goal( {M_PI-0.2, M_PI-0.2, 0.01} );
+    RigidBody::CONFIG start( {0.1, 0.2, 1.61} );
+    RigidBody::CONFIG goal( {M_PI-0.2, M_PI-0.2, 2.01} );
     
     
     // Set up the world
@@ -105,7 +105,7 @@ void display()
     // Simple World
     //std::vector<N2D::v2> p1_points( { N2D::v2( 0.5, 1.2 ), N2D::v2(0.8, 1.2), N2D::v2(0.8, 0.9), N2D::v2( 0.5, 0.9) } );
     std::vector<N2D::v2> p2_points( { N2D::v2( 1.0, 4.8 ), N2D::v2(2.1, 4.8), N2D::v2(2.1, 1.7), N2D::v2( 1.0, 1.7) } );
-    std::vector<N2D::v2> p3_points( { N2D::v2( 1.0, 1.535 ), N2D::v2(2.1, 1.535), N2D::v2(2.1, -1.7), N2D::v2( 1.0, -1.7) } );
+    std::vector<N2D::v2> p3_points( { N2D::v2( 1.0, 1.5445 ), N2D::v2(2.1, 1.5445), N2D::v2(2.1, -1.7), N2D::v2( 1.0, -1.7) } );
      //N2D::Polygon p1(p1_points);
     N2D::Polygon p2(p2_points);
     N2D::Polygon p3(p3_points);
@@ -123,7 +123,7 @@ void display()
         algorithms::KDDecomposer<RigidBody> sampler(robot, obstacle_manager, epsilon);
         std::clock_t    t0 = std::clock();
         //sampler.DecomposeSpace();
-        sampler.AdaptiveDecompose(M_PI/64, M_PI/1024);
+        sampler.AdaptiveDecompose(M_PI/128, M_PI/2048);
         std::clock_t    t1 = std::clock();
         std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());
@@ -132,7 +132,6 @@ void display()
         
         // Start Planning
         // Set up planner
-        
         algorithms::Planner<RigidBody> planner( sampler );
         planner.initialize(sampler, goal, robot);
         

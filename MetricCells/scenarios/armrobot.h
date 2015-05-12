@@ -25,11 +25,12 @@ public:
     ArmRobot(double anchor_x,                               // base x position
              double anchor_y,                               // base y position
              const std::array<double, DIM>& lengths,        // lengthe of each link
-             const std::array<double, DIM>& max_speeds);    // max speed of each joint
+             const std::array<double, DIM>& max_speeds,     // max speed of each joint
+             const std::array<robotics::Range, DIM>& ranges);// parameter ranges
     
     
     // Get the range of each config
-    const std::array<robotics::Range, DIMENSION>& get_config_ranges() const {
+    const std::array<robotics::Range, DIM>& get_config_ranges() const {
         return config_ranges_;
     }
     
