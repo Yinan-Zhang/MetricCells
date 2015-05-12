@@ -79,6 +79,8 @@ void keyPressed (unsigned char key, int x, int y) {
 
 void display()
 {
+    std::cout << "In case of path not found, please set Arm arg range to -PI to PI\n";
+    
     N2D::render::clean_screen();
     
     ArmRobot<DIM>::CONFIG start( {M_PI/2 - .01, -M_PI/2 +0.4, 1.4} );
@@ -114,7 +116,7 @@ void display()
         algorithms::KDDecomposer<ArmRobot<DIM>> sampler(robot, obstacle_manager, epsilon);
         std::clock_t    t0 = std::clock();
         //sampler.DecomposeSpace();
-        sampler.AdaptiveDecompose(M_PI/64, M_PI/2048);
+        sampler.AdaptiveDecompose(M_PI/128, M_PI/2048);
         std::clock_t    t1 = std::clock();
         std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());

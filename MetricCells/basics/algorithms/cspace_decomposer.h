@@ -146,7 +146,7 @@ namespace algorithms {
         }
         
         void add_boundary(int boundary) {
-            boundaries.emplace_back(boundary);
+            boundaries.push_back(boundary);
         }
         
         const std::vector<int>& get_boundaries() const { return boundaries; }

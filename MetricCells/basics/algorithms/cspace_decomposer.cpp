@@ -150,6 +150,9 @@ void algorithms::KDDecomposer<IROBOT>::DecomposeSubspaces(std::stack<int>& stack
         stack.pop();
         
         double cell_radius = radius_array[get_node(node_index).depth()];
+        // 3R Arm:
+        //double local_min_radius = std::min( large_radius/2.0, std::max(min_radius, large_radius/(impt_map[node_index]*10)));
+        // 4R Arm:
         double local_min_radius = std::min( large_radius/2.0, std::max(min_radius, large_radius/(impt_map[node_index])));
         
         robot_.set_config(get_node(node_index).center());
@@ -337,12 +340,12 @@ void algorithms::KDDecomposer<IROBOT>::build_edges(bool clear_nodes)
     all_boundaries.clear();
     std::vector<CONFIG> all_corners;
     std::vector<const CONFIG*> corner_configs;
-    all_corners.reserve(1000000000);
-    corner_configs.reserve(200000000);
+    all_corners.reserve(1000000);
+    corner_configs.reserve(200000);
     get_unique_crn_cfgs(corner_configs, all_corners);
     
     std::clock_t    t0 = std::clock();
-    all_boundaries.reserve(30000000);
+    all_boundaries.reserve(300000);
     // Build all boundaries
     std::vector<int> containing_cells;
     for (const CONFIG* cfg : corner_configs) {

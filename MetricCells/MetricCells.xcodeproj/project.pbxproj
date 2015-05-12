@@ -10,11 +10,12 @@
 		B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B30014041AE4407500D9C8CE /* armrobot_planning.cpp */; };
 		B30014151AE44EE100D9C8CE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B30014171AE44EE500D9C8CE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
-		B31C996F1B00012300AB4521 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C996D1B00012300AB4521 /* Planner.cpp */; };
-		B31C99721B01521000AB4521 /* 4armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */; };
 		B31C997E1B01525F00AB4521 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		B31C997F1B01525F00AB4521 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		B31C99801B01526B00AB4521 /* 4armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B31C99701B01521000AB4521 /* 4armrobot_planning.cpp */; };
+		FDA383741B019CD0002E7F92 /* RigidBody_Planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA383681B019B6F002E7F92 /* RigidBody_Planning.cpp */; };
+		FDA383751B019CDC002E7F92 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
+		FDA383761B019CDC002E7F92 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		FDA622471AEEC1D200772004 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014141AE44EE100D9C8CE /* OpenGL.framework */; };
 		FDA622481AEEC1D600772004 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B30014161AE44EE500D9C8CE /* GLUT.framework */; };
 		FDA622491AEEC1E100772004 /* 3armrobot_planning.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */; };
@@ -31,6 +32,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		B3E678831AE4379100A0D287 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		FDA3836B1B019CC4002E7F92 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -75,6 +85,9 @@
 		B31C99771B01524400AB4521 /* 4RRobot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 4RRobot; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E678851AE4379100A0D287 /* MetricCells */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetricCells; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD841DC01AE5E33D0027DE00 /* PRM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRM.h; sourceTree = "<group>"; };
+		FDA383671B0195E4002E7F92 /* RigidBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RigidBody.h; sourceTree = "<group>"; };
+		FDA383681B019B6F002E7F92 /* RigidBody_Planning.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBody_Planning.cpp; sourceTree = "<group>"; };
+		FDA3836D1B019CC4002E7F92 /* RigidBody */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RigidBody; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDA622391AEEC0DB00772004 /* 3armrobot_planning.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 3armrobot_planning.cpp; sourceTree = "<group>"; };
 		FDA622401AEEC1BD00772004 /* 3RRobot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 3RRobot; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +111,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FDA3836A1B019CC4002E7F92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDA383751B019CDC002E7F92 /* GLUT.framework in Frameworks */,
+				FDA383761B019CDC002E7F92 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FDA6223D1AEEC1BD00772004 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,6 +135,7 @@
 		B30013E81AE43A9C00D9C8CE /* scenarios */ = {
 			isa = PBXGroup;
 			children = (
+				FDA383661B0195C5002E7F92 /* rigidbody */,
 				B30014081AE4408E00D9C8CE /* armrobot.h */,
 				B30014051AE4407500D9C8CE /* armrobot.cpp */,
 				B30014041AE4407500D9C8CE /* armrobot_planning.cpp */,
@@ -200,6 +223,7 @@
 				B3E678871AE4379100A0D287 /* MetricCells */,
 				FDA622411AEEC1BD00772004 /* 3RRobot */,
 				B31C99781B01524400AB4521 /* 4RRobot */,
+				FDA3836E1B019CC4002E7F92 /* RigidBody */,
 				B3E678861AE4379100A0D287 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -210,6 +234,7 @@
 				B3E678851AE4379100A0D287 /* MetricCells */,
 				FDA622401AEEC1BD00772004 /* 3RRobot */,
 				B31C99771B01524400AB4521 /* 4RRobot */,
+				FDA3836D1B019CC4002E7F92 /* RigidBody */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,6 +246,22 @@
 				B30013E91AE43AB100D9C8CE /* basics */,
 			);
 			path = MetricCells;
+			sourceTree = "<group>";
+		};
+		FDA383661B0195C5002E7F92 /* rigidbody */ = {
+			isa = PBXGroup;
+			children = (
+				FDA383671B0195E4002E7F92 /* RigidBody.h */,
+				FDA383681B019B6F002E7F92 /* RigidBody_Planning.cpp */,
+			);
+			path = rigidbody;
+			sourceTree = "<group>";
+		};
+		FDA3836E1B019CC4002E7F92 /* RigidBody */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RigidBody;
 			sourceTree = "<group>";
 		};
 		FDA622411AEEC1BD00772004 /* 3RRobot */ = {
@@ -267,6 +308,23 @@
 			productReference = B3E678851AE4379100A0D287 /* MetricCells */;
 			productType = "com.apple.product-type.tool";
 		};
+		FDA3836C1B019CC4002E7F92 /* RigidBody */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDA383711B019CC4002E7F92 /* Build configuration list for PBXNativeTarget "RigidBody" */;
+			buildPhases = (
+				FDA383691B019CC4002E7F92 /* Sources */,
+				FDA3836A1B019CC4002E7F92 /* Frameworks */,
+				FDA3836B1B019CC4002E7F92 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RigidBody;
+			productName = RigidBody;
+			productReference = FDA3836D1B019CC4002E7F92 /* RigidBody */;
+			productType = "com.apple.product-type.tool";
+		};
 		FDA6223F1AEEC1BD00772004 /* 3RRobot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDA622441AEEC1BD00772004 /* Build configuration list for PBXNativeTarget "3RRobot" */;
@@ -299,6 +357,9 @@
 					B3E678841AE4379100A0D287 = {
 						CreatedOnToolsVersion = 6.3;
 					};
+					FDA3836C1B019CC4002E7F92 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					FDA6223F1AEEC1BD00772004 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -319,6 +380,7 @@
 				B3E678841AE4379100A0D287 /* MetricCells */,
 				FDA6223F1AEEC1BD00772004 /* 3RRobot */,
 				B31C99761B01524400AB4521 /* 4RRobot */,
+				FDA3836C1B019CC4002E7F92 /* RigidBody */,
 			);
 		};
 /* End PBXProject section */
@@ -336,9 +398,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B31C99721B01521000AB4521 /* 4armrobot_planning.cpp in Sources */,
-				B31C996F1B00012300AB4521 /* Planner.cpp in Sources */,
 				B30014061AE4407500D9C8CE /* armrobot_planning.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDA383691B019CC4002E7F92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDA383741B019CD0002E7F92 /* RigidBody_Planning.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +530,24 @@
 			};
 			name = Release;
 		};
+		FDA383721B019CC4002E7F92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FDA383731B019CC4002E7F92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		FDA622451AEEC1BD00772004 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -490,6 +576,7 @@
 				B31C997D1B01524400AB4521 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3E678801AE4379100A0D287 /* Build configuration list for PBXProject "MetricCells" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +595,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FDA383711B019CC4002E7F92 /* Build configuration list for PBXNativeTarget "RigidBody" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDA383721B019CC4002E7F92 /* Debug */,
+				FDA383731B019CC4002E7F92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		FDA622441AEEC1BD00772004 /* Build configuration list for PBXNativeTarget "3RRobot" */ = {
 			isa = XCConfigurationList;

@@ -1,29 +1,39 @@
 //
-//  4armrobot_planning.cpp
+//  RigidBody_Planning.cpp
 //  MetricCells
 //
 //  Created by Yinan Zhang on 5/11/15.
 //  Copyright (c) 2015 Yinan Zhang. All rights reserved.
 //
 
+#include <stdio.h>
+
+//
+//  armrobot_planning.cpp
+//  RSS2015
+//
+//  Created by Yu-Han Lyu on 1/26/15.
+//  Copyright (c) 2015 Yinan Zhang. All rights reserved.
+//
 #include <unistd.h>
 #include <algorithm>
 #include <fstream>
 
-#include "armrobot.h"
-#include "../basics/robotics/robot.h"
-#include "../basics/math/Naive2D/geometry.h"
-#include "../basics/math/Naive2D/render.h"
-#include "../basics/algorithms/file_reader.h"
-#include "../basics/algorithms/Planner.h"
-#include "../basics/algorithms/cspace_decomposer.h"
-#include "../basics/algorithms/cell_analysis.h"
-#include "../basics/algorithms/PRM.h"
+#include "RigidBody.h"
+#include "../../basics/robotics/robot.h"
+#include "../../basics/math/Naive2D/geometry.h"
+#include "../../basics/math/Naive2D/render.h"
+#include "../../basics/algorithms/file_reader.h"
+#include "../../basics/robotics/cspace_scanner.h"
+#include "../../basics/algorithms/cspace_decomposer.h"
+#include "../../basics/algorithms/cell_analysis.h"
+#include "../../basics/algorithms/PRM.h"
+#include "../../basics/algorithms/Planner.h"
 
 // Basic configuration set up
 int     num_samples     = 1000;
 bool    outside         = false;
-double  epsilon         = 0.4;
+double  epsilon         = 0.1;
 bool    write_to_file   = false;
 bool    use_oracle      = true;
 int     num_joints      = 2;
@@ -32,19 +42,15 @@ bool    render_cells    = true;
 bool    scan_space      = false;
 bool    render_workspace= true;
 bool    search_path     = true;
-#define DIM 4
 
 // Set up the robot
-std::array<double, DIM> arm_lengths{0.6, 0.6, 0.6, 0.6 };
-std::array<double, DIM> max_angular_speeds{1.0, 1.0, 1.0, 1.0};
-ArmRobot<DIM> robot ( 0.1, M_PI/2, arm_lengths, max_angular_speeds);
-std::vector<ArmRobot<DIM>::CONFIG> path;
-std::vector<N2D::sphere> obst_cfgs;
-std::vector<algorithms::Cell<ArmRobot<DIM>>> planning_cells;
+RigidBody robot ( 0.15, 0.3, 1.0);
+std::vector<RigidBody::CONFIG> path;
+std::vector<algorithms::Cell<RigidBody>> planning_cells;
 std::vector<double> importance;
 
 
-void render_robot(ArmRobot<DIM>::CONFIG& config, int r, int g, int b, int a = 250)
+void render_robot(RigidBody::CONFIG& config, int r, int g, int b, int a = 250)
 {
     robot.set_config(config);
     const std::vector<N2D::Polygon> shapes2 = robot.get_shape();
@@ -53,6 +59,7 @@ void render_robot(ArmRobot<DIM>::CONFIG& config, int r, int g, int b, int a = 25
         N2D::render::polygon( shape,  N2D::render::Color(r, g, b, a), false);
     }
 }
+
 
 void keyPressed (unsigned char key, int x, int y) {
     if (key == 'r') { // If they ‘a’ key was pressed
@@ -82,43 +89,41 @@ void display()
 {
     N2D::render::clean_screen();
     
-    ArmRobot<DIM>::CONFIG start( {0.7, 0.5, 0.2, 0.30} );
-    ArmRobot<DIM>::CONFIG goal( {M_PI/2 - .01, 0.11, 0.31, 0.31} );
-    //ArmRobot<DIM>::CONFIG goal( {M_PI - .1, 0.15, 0.1} );
+    //RigidBody::CONFIG start( {0.05, 0.05} );
+    //RigidBody::CONFIG goal( {M_PI/2 + .25, 0.11} );
+    
+    RigidBody::CONFIG start( {0.1, 0.2, 0.01} );
+    RigidBody::CONFIG goal( {M_PI-0.2, M_PI-0.2, 0.01} );
+    
     
     // Set up the world
-    //std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
-    std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    std::vector<N2D::Polygon> polies = parse_file("/Users/Yinan/workspace/RSS2014/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
+    //std::vector<N2D::Polygon> polies = parse_file("/Users/IanZhang/Documents/workspace/RSS2015/C++/RSS2015/ji.txt", N2D::v2(M_PI, M_PI));
     //std::vector<N2D::Polygon> polies = parse_file("/Users/yuhanlyu/Documents/RSS2015/C++/RSS2015/ji.txt", geometry::v2(M_PI, M_PI));
     std::vector<robotics::Obstacle> obsts;
-    /*
-     for (N2D::Polygon poly : polies) {
-     obsts.emplace_back(poly);
-     }*/
     
     // Simple World
     //std::vector<N2D::v2> p1_points( { N2D::v2( 0.5, 1.2 ), N2D::v2(0.8, 1.2), N2D::v2(0.8, 0.9), N2D::v2( 0.5, 0.9) } );
-    std::vector<N2D::v2> p2_points( { N2D::v2( 1.4, 1.4 ), N2D::v2(1.7, 1.4), N2D::v2(1.7, 1.1), N2D::v2( 1.4, 1.1) } );
-    std::vector<N2D::v2> p3_points( { N2D::v2( 2.2, 0.6 ), N2D::v2(2.5, 0.6), N2D::v2(2.5, 0.3), N2D::v2( 2.2, 0.3) } );
-    std::vector<N2D::v2> p4_points( { N2D::v2( 1.2, 2.45 ), N2D::v2(1.5, 2.45), N2D::v2(1.5, 2.15), N2D::v2( 1.2, 2.15) } );
-    //N2D::Polygon p1(p1_points);
+    std::vector<N2D::v2> p2_points( { N2D::v2( 1.0, 4.8 ), N2D::v2(2.1, 4.8), N2D::v2(2.1, 1.7), N2D::v2( 1.0, 1.7) } );
+    std::vector<N2D::v2> p3_points( { N2D::v2( 1.0, 1.535 ), N2D::v2(2.1, 1.535), N2D::v2(2.1, -1.7), N2D::v2( 1.0, -1.7) } );
+     //N2D::Polygon p1(p1_points);
     N2D::Polygon p2(p2_points);
     N2D::Polygon p3(p3_points);
-    N2D::Polygon p4(p4_points);
     //obsts.push_back(p1);
     obsts.push_back(p2);
     obsts.push_back(p3);
-    obsts.push_back(p4);
+    
     
     robotics::ObstManager obstacle_manager(obsts);
+    
     
     if( planning_cells.size() == 0 && !render_workspace )
     {
         // Decompose C-Space
-        algorithms::KDDecomposer<ArmRobot<DIM>> sampler(robot, obstacle_manager, epsilon);
+        algorithms::KDDecomposer<RigidBody> sampler(robot, obstacle_manager, epsilon);
         std::clock_t    t0 = std::clock();
         //sampler.DecomposeSpace();
-        sampler.AdaptiveDecompose(M_PI/32, M_PI/4096);
+        sampler.AdaptiveDecompose(M_PI/64, M_PI/1024);
         std::clock_t    t1 = std::clock();
         std::cout << "Time cost for decomposing C-space:\n\t" << (t1-t0) / (double)(CLOCKS_PER_SEC / 1000) << "ms\n";
         printf("Free cells: %d\n", (int)sampler.get_free_cells().size());
@@ -128,7 +133,7 @@ void display()
         // Start Planning
         // Set up planner
         
-        algorithms::Planner<ArmRobot<DIM>> planner( sampler );
+        algorithms::Planner<RigidBody> planner( sampler );
         planner.initialize(sampler, goal, robot);
         
         // Search for path
@@ -141,7 +146,7 @@ void display()
     }
     
     // Render Cells
-    if( !render_workspace && render_cells )
+    if( render_cells && !render_workspace )
     {
         const double max_weight = 0;//*std::max_element(std::begin(importance), std::end(importance));
         const double min_weight = 0;//*std::min_element(std::begin(importance), std::end(importance));
@@ -149,7 +154,7 @@ void display()
         int count = 0;
         for (int i = 0; i < planning_cells.size(); i++)
         {
-            ND::sphere<DIM> temp_sphere = planning_cells[i].sphere();
+            ND::sphere<RigidBody::DIM> temp_sphere = planning_cells[i].sphere();
             N2D::sphere temp2d_sphere( N2D::v2( temp_sphere.center()[0], temp_sphere.center()[1] ), temp_sphere.radius(), N2D::SPHEREMETRIC::LINFTY );
             
             if( planning_cells[i].visited() )
@@ -160,6 +165,14 @@ void display()
             else
             {
                 N2D::render::sphere(temp2d_sphere, N2D::render::Color( 50,50,50, 40 ), false);
+                /*
+                 if( temp2d_sphere.radius() <= M_PI/64)
+                 {
+                 count ++;
+                 double weight = importance[i] / ( max_weight/8.0 - min_weight );
+                 N2D::render::sphere(temp2d_sphere, N2D::render::Color( 255*weight,0,0, 40 ), true);
+                 }
+                 */
             }
         }
         std::cout << count << '\n';
@@ -193,7 +206,7 @@ void display()
         render_robot(path[0], 250, 0, 0);
         for( int i = 1; i < path.size(); i++ )
         {
-            render_robot(path[i],135, 206, 250, std::max( (int)(float(i)/float(path.size()) * 60), 10));
+            render_robot(path[i],135, 206, 250, std::max( (int)(float(i)/float(path.size()) * 250), 10));
         }
     }
     
@@ -206,7 +219,7 @@ void display()
 
 int main()
 {
-    N2D::render::create_window(314, 314, "ArmRobot", N2D::v2(100,100));
+    N2D::render::create_window(314, 314, "RigidBody", N2D::v2(100,100));
     N2D::render::translate_world(0.08,0.08);
     N2D::render::scale_world(90, 90);
     

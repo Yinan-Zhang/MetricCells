@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FDA6223F1AEEC1BD00772004"
-               BuildableName = "3RRobot"
-               BlueprintName = "3RRobot"
+               BlueprintIdentifier = "FDA3836C1B019CC4002E7F92"
+               BuildableName = "RigidBody"
+               BlueprintName = "RigidBody"
                ReferencedContainer = "container:MetricCells.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FDA6223F1AEEC1BD00772004"
-            BuildableName = "3RRobot"
-            BlueprintName = "3RRobot"
+            BlueprintIdentifier = "FDA3836C1B019CC4002E7F92"
+            BuildableName = "RigidBody"
+            BlueprintName = "RigidBody"
             ReferencedContainer = "container:MetricCells.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -44,7 +44,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -52,9 +52,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FDA6223F1AEEC1BD00772004"
-            BuildableName = "3RRobot"
-            BlueprintName = "3RRobot"
+            BlueprintIdentifier = "FDA3836C1B019CC4002E7F92"
+            BuildableName = "RigidBody"
+            BlueprintName = "RigidBody"
             ReferencedContainer = "container:MetricCells.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,9 +71,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FDA6223F1AEEC1BD00772004"
-            BuildableName = "3RRobot"
-            BlueprintName = "3RRobot"
+            BlueprintIdentifier = "FDA3836C1B019CC4002E7F92"
+            BuildableName = "RigidBody"
+            BlueprintName = "RigidBody"
             ReferencedContainer = "container:MetricCells.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
